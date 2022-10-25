@@ -3,6 +3,8 @@
     src: pm_extra_tools-1.4-1.el8.noarch.rpm
     dest: /var/tmp/
   register: rc_copy
+  retries: 5
+  until: rc_copy is not failed
 
 ## # yum install pm_extra_tools
 #
@@ -11,3 +13,6 @@
     name: "{{ rc_copy.dest }}"
     disable_gpg_check: True
     state: present
+  register: rc_yum
+  retries: 5
+  until: rc_yum is not failed
